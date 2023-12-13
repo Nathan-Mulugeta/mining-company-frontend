@@ -16,10 +16,13 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openAlert } from '../slices/alert/alertSlice';
 import { setLoading } from '../slices/loading/loadingSlice';
+import usePersist from '../hooks/usePersist';
 
 export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [persist, setPersist] = usePersist();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,6 +75,7 @@ export default function SignIn() {
 
   const handleUsername = (e) => setUsername(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
+  const handlePersist = (e) => setPersist((prev) => !prev);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -110,10 +114,12 @@ export default function SignIn() {
             id="password"
             onChange={handlePassword}
           />
-          {/* <FormControlLabel
+          <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          /> */}
+            onChange={handlePersist}
+            checked={persist}
+          />
           <Button
             type="submit"
             fullWidth
