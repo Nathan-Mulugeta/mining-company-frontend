@@ -1,24 +1,18 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import FireTruckIcon from '@mui/icons-material/FireTruck';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MenuIcon from '@mui/icons-material/Menu';
 
-export default function SwipeableTemporaryDrawer() {
-  const [open, setOpen] = React.useState(false);
-
+export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
   const toggleDrawer = (event) => {
     if (
       event &&
@@ -28,7 +22,7 @@ export default function SwipeableTemporaryDrawer() {
       return;
     }
 
-    setOpen(!open);
+    drawerToggle();
   };
 
   const list = () => (
@@ -69,12 +63,9 @@ export default function SwipeableTemporaryDrawer() {
   return (
     <div>
       <React.Fragment>
-        <Button onClick={toggleDrawer}>
-          <MenuIcon />
-        </Button>
         <SwipeableDrawer
           anchor="left"
-          open={open}
+          open={drawerOpen}
           onClose={toggleDrawer}
           onOpen={toggleDrawer}
         >
