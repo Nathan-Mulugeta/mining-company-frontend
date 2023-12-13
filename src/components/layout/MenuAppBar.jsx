@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,12 +9,31 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Tooltip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useSendLogoutMutation } from '../../slices/auth/authApiSlice';
+import MuiAlert from '@mui/material/Alert';
+import { useDispatch } from 'react-redux';
+import { openAlert } from '../../slices/alert/alertSlice';
+import { setLoading } from '../../slices/loading/loadingSlice';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function MenuAppBar({ toggleDrawer }) {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [auth, setAuth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [sendLogout, { isLoading }] = useSendLogoutMutation();
+
+  useEffect(() => {
+    dispatch(setLoading(isLoading));
+  }, [dispatch, isLoading]);
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -26,6 +45,29 @@ export default function MenuAppBar({ toggleDrawer }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSettingClick = async (setting) => {
+    setAnchorEl(null);
+    if (setting === 'Logout') {
+      await sendLogout();
+
+      dispatch(
+        openAlert({
+          message: 'Successfully logged out',
+          severity: 'success',
+        })
+      );
+      navigate('/sign-in');
+    }
+  };
+
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setAlertOpen(false);
   };
 
   return (
@@ -77,7 +119,10 @@ export default function MenuAppBar({ toggleDrawer }) {
                 onClose={handleClose}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleClose}>
+                  <MenuItem
+                    key={setting}
+                    onClick={() => handleSettingClick(setting)}
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}

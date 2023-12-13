@@ -15,7 +15,7 @@ const Layout = () => {
     <>
       <MenuAppBar toggleDrawer={toggleDrawer} />
       <SideNav toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} />
-      <Container fixed sx={{ padding: 2, marginTop: 6 }}>
+      <Container fixed sx={{ padding: 2, marginTop: 8 }}>
         <Outlet />
       </Container>
     </>

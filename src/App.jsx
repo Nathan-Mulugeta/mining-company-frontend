@@ -4,20 +4,38 @@ import Home from './pages/Home';
 import Layout from './components/layout/Layout';
 import Report from './pages/Report';
 import TransportationTask from './pages/TransportationTask';
+import SignIn from './pages/SignIn';
+import CustomizedSnackbars from './components/CustomizedSnackBars';
+import RequireAuth from './components/auth/RequireAuth';
+import { ROLES } from '../config/roles';
+import Loading from './components/Loading';
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="report" element={<Report />} />
-          <Route path="transportation-task" element={<TransportationTask />} />
+        <Route path="/">
+          <Route path="sign-in" element={<SignIn />} />
 
-          {/* Wildcard route for 404 */}
-          <Route path="*" element={<NotFound />} />
+          <Route
+            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+          >
+            <Route element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="report" element={<Report />} />
+              <Route
+                path="transportation-task"
+                element={<TransportationTask />}
+              />
+
+              {/* Wildcard route for 404 */}
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
+      <CustomizedSnackbars />
+      <Loading />
     </>
   );
 };
