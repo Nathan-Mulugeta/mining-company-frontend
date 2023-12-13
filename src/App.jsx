@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
-import Layout from './components/Layout';
+import Layout from './components/layout/Layout';
 import Report from './pages/Report';
 import TransportationTask from './pages/TransportationTask';
 

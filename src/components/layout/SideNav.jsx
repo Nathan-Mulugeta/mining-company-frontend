@@ -33,9 +33,12 @@ export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
       onKeyDown={toggleDrawer}
     >
       <List>
-        {['Report', 'Create a transport'].map((text, index) => (
+        {[
+          { text: 'Report', route: '/report' },
+          { text: 'Create a transport', route: '/transportation-task' },
+        ].map(({ text, route }) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton to={route}>
               <ListItemIcon>
                 {text === 'Report' ? <AssessmentIcon /> : <FireTruckIcon />}
               </ListItemIcon>
