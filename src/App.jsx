@@ -9,6 +9,7 @@ import CustomizedSnackbars from './components/CustomizedSnackBars';
 import RequireAuth from './components/auth/RequireAuth';
 import { ROLES } from '../config/roles';
 import Loading from './components/Loading';
+import PersistLogin from './components/auth/PersistLogin';
 
 const App = () => {
   return (
@@ -17,19 +18,21 @@ const App = () => {
         <Route path="/">
           <Route path="sign-in" element={<SignIn />} />
 
-          <Route
-            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
-          >
-            <Route element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="report" element={<Report />} />
-              <Route
-                path="transportation-task"
-                element={<TransportationTask />}
-              />
+          <Route element={<PersistLogin />}>
+            <Route
+              element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+            >
+              <Route element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="report" element={<Report />} />
+                <Route
+                  path="transportation-task"
+                  element={<TransportationTask />}
+                />
 
-              {/* Wildcard route for 404 */}
-              <Route path="*" element={<NotFound />} />
+                {/* Wildcard route for 404 */}
+                <Route path="*" element={<NotFound />} />
+              </Route>
             </Route>
           </Route>
         </Route>
