@@ -10,6 +10,7 @@ import RequireAuth from './components/auth/RequireAuth';
 import { ROLES } from '../config/roles';
 import Loading from './components/Loading';
 import PersistLogin from './components/auth/PersistLogin';
+import Prefetch from './components/auth/Prefetch';
 
 const App = () => {
   return (
@@ -22,16 +23,18 @@ const App = () => {
             <Route
               element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
             >
-              <Route element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="report" element={<Report />} />
-                <Route
-                  path="transportation-task"
-                  element={<TransportationTask />}
-                />
+              <Route element={<Prefetch />}>
+                <Route element={<Layout />}>
+                  <Route index element={<Home />} />
+                  <Route path="report" element={<Report />} />
+                  <Route
+                    path="transportation-task"
+                    element={<TransportationTask />}
+                  />
 
-                {/* Wildcard route for 404 */}
-                <Route path="*" element={<NotFound />} />
+                  {/* Wildcard route for 404 */}
+                  <Route path="*" element={<NotFound />} />
+                </Route>
               </Route>
             </Route>
           </Route>

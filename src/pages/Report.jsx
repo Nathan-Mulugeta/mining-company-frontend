@@ -1,7 +1,7 @@
-import React from 'react';
+import TransportationTaskDataGrid from '../components/transportationTask/TransportationTaskDataGrid';
 
 const Report = () => {
-  return <div>Report</div>;
+  return <TransportationTaskDataGrid />;
 };
 
 export default Report;
