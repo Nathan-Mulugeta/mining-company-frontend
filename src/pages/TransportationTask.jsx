@@ -11,30 +11,133 @@ import TransportationTaskForm from '../components/transportationTask/Transportat
 import Review from '../components/transportationTask/ReviewTask';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Icon } from '@mui/material';
+import useAuth from '../hooks/useAuth';
+import { useAddNewTransportationTaskMutation } from '../slices/transportationTask/transportationTaskApiSlice';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../slices/loading/loadingSlice';
+import { openAlert } from '../slices/alert/alertSlice';
 
 const steps = ['Transport details', 'Review your task'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <TransportationTaskForm />;
-    case 1:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
 export default function TransportationTask() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const { userId } = useAuth();
+  const [formData, setFormData] = React.useState({
+    description: '',
+    weight: '',
+    pricePerTon: '',
+    source: '',
+    destination: '',
+    assignedVehicle: '',
+    assignedDriver: '',
+    scheduledTime: '',
+    filledBy: '',
+  });
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
+  console.log('Source: ', formData.source);
+
+  React.useEffect(() => {
+    setFormData({
+      ...formData,
+      filledBy: userId,
+    });
+  }, [userId]);
+
+  const dispatch = useDispatch();
+
+  const [addNewTask, { isLoading, isError, isSuccess, error }] =
+    useAddNewTransportationTaskMutation();
+
+  React.useEffect(() => {
+    dispatch(setLoading(isLoading));
+  }, [dispatch, isLoading]);
+
+  React.useEffect(() => {
+    if (isError) {
+      dispatch(openAlert({ message: error?.data.message, severity: 'error' }));
+    }
+  }, [dispatch, isError]);
+
+  const getStepContent = React.useCallback((step) => {
+    switch (step) {
+      case 0:
+        return (
+          <TransportationTaskForm
+            handleInputChange={handleInputChange}
+            formData={formData}
+            setFormData={setFormData}
+          />
+        );
+      case 1:
+        return <Review formData={formData} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleNext = async () => {
+    try {
+      if (activeStep === steps.length - 1) {
+        const taskData = {
+          filledBy: formData.filledBy,
+          cargo: {
+            description: formData.description,
+            weight: formData.weight,
+            pricePerTon: formData.pricePerTon,
+          },
+          source: formData.source,
+          destination: formData.destination,
+          assignedVehicle: formData.assignedVehicle,
+          assignedDriver: formData.assignedDriver,
+          scheduledTime: formData.scheduledTime,
+        };
+
+        const response = await addNewTask(taskData);
+
+        // Check the response status and throw an error if it's not successful
+        if (response.status !== 200) {
+          throw new Error(response);
+        }
+
+        // If addNewTask succeeds, update the form and step
+        setActiveStep(steps.length);
+        setFormData({
+          description: '',
+          weight: '',
+          pricePerTon: '',
+          source: '',
+          destination: '',
+          assignedVehicle: '',
+          assignedDriver: '',
+          scheduledTime: '',
+          filledBy: '',
+        });
+      } else {
+        // Move to the next step
+        setActiveStep(activeStep + 1);
+      }
+    } catch (error) {
+      // Handle errors from addNewTask or any other potential errors
+      console.error(error);
+      // Reset the form or take appropriate error handling steps
+      setActiveStep(0);
+    }
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const isFormComplete = Object.values(formData).every((data) => data !== '');
 
   return (
     <React.Fragment>
@@ -71,6 +174,9 @@ export default function TransportationTask() {
                 <Typography variant="h5" gutterBottom>
                   Your task has been created successfully.
                 </Typography>
+                <Button onClick={() => setActiveStep(0)}>
+                  Create a new task
+                </Button>
               </Box>
             </React.Fragment>
           ) : (
@@ -84,6 +190,7 @@ export default function TransportationTask() {
                 )}
 
                 <Button
+                  disabled={!isFormComplete}
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
