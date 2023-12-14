@@ -10,6 +10,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 import { useGetSitesQuery } from '../../slices/sites/sitesApiSlice';
+import { useGetVehiclesQuery } from '../../slices/vehicle/vehiclesApiSlice';
 
 const top100Films = [{ label: 'The Shawshank Redemption', year: 1994 }];
 
@@ -18,16 +19,30 @@ export default function TransportationTaskForm({
   formData,
   setFormData,
 }) {
-  const { data, isLoading } = useGetSitesQuery('sitesList', {
+  const sitesResults = useGetSitesQuery('sitesList', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
 
-  const { entities = {} } = data || {};
+  const vehiclesResults = useGetVehiclesQuery('vehiclesList', {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
-  const sites = Object.values(entities).map((entry) => {
+  const { entities: sitesEntries = {} } = sitesResults.data || {};
+  const { entities: vehiclesEntries = {} } = vehiclesResults.data || {};
+
+  const sites = Object.values(sitesEntries).map((entry) => {
     return { id: entry.id, label: entry.name };
+  });
+
+  const vehicles = Object.values(vehiclesEntries).map((entry) => {
+    return {
+      id: entry.id,
+      label: `${entry.vehicleType} - ${entry.plateNumber}`,
+    };
   });
 
   return (
@@ -97,27 +112,39 @@ export default function TransportationTaskForm({
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            onChange={handleInputChange}
-            value={formData.destination}
-            required
+          <Autocomplete
             id="destination"
-            name="destination"
-            label="Destination"
-            fullWidth
-            variant="standard"
+            options={sites}
+            onChange={(event, newValue) => {
+              setFormData({ ...formData, destination: newValue?.id ?? '' });
+            }}
+            renderInput={(params) => (
+              <TextField
+                name="destination"
+                value={formData.destination}
+                {...params}
+                label="Destination"
+                variant="standard"
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            onChange={handleInputChange}
-            value={formData.assignedVehicle}
-            required
+          <Autocomplete
             id="assignedVehicle"
-            name="assignedVehicle"
-            label="Assigned Vehicle"
-            fullWidth
-            variant="standard"
+            options={vehicles}
+            onChange={(event, newValue) => {
+              setFormData({ ...formData, assignedVehicle: newValue?.id ?? '' });
+            }}
+            renderInput={(params) => (
+              <TextField
+                name="assignedVehicle"
+                value={formData.assignedVehicle}
+                {...params}
+                label="Assigned Vehicle"
+                variant="standard"
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

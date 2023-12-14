@@ -4,6 +4,7 @@ import { transportationTasksApiSlice } from '../../slices/transportationTask/tra
 import { usersApiSlice } from '../../slices/users/usersApiSlice';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { vehiclesApiSlice } from '../../slices/vehicle/vehiclesApiSlice';
 
 const Prefetch = () => {
   useEffect(() => {
@@ -19,6 +20,12 @@ const Prefetch = () => {
     );
     store.dispatch(
       sitesApiSlice.util.prefetch('getSites', 'sitesList', { force: true })
+    );
+
+    store.dispatch(
+      vehiclesApiSlice.util.prefetch('getVehicles', 'vehiclesList', {
+        force: true,
+      })
     );
   }, []);
 
