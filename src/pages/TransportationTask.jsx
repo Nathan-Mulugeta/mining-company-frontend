@@ -34,8 +34,6 @@ export default function TransportationTask() {
     filledBy: '',
   });
 
-  console.log('Source: ', formData.source);
-
   React.useEffect(() => {
     setFormData({
       ...formData,
@@ -104,7 +102,8 @@ export default function TransportationTask() {
         const response = await addNewTask(taskData);
 
         // Check the response status and throw an error if it's not successful
-        if (response.status !== 200) {
+        if (response.isError) {
+          console.log(response);
           throw new Error(response);
         }
 

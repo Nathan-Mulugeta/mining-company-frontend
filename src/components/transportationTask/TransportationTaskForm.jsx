@@ -57,8 +57,6 @@ export default function TransportationTaskForm({
     };
   });
 
-  console.log(drivers);
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
