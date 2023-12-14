@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useGetSitesQuery } from '../../slices/sites/sitesApiSlice';
 import { useGetVehiclesQuery } from '../../slices/vehicle/vehiclesApiSlice';
+import { useGetDriversQuery } from '../../slices/driver/driversApiSlice';
 
 const top100Films = [{ label: 'The Shawshank Redemption', year: 1994 }];
 
@@ -31,11 +32,22 @@ export default function TransportationTaskForm({
     refetchOnMountOrArgChange: true,
   });
 
+  const driversResults = useGetDriversQuery('driversList', {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
+
   const { entities: sitesEntries = {} } = sitesResults.data || {};
   const { entities: vehiclesEntries = {} } = vehiclesResults.data || {};
+  const { entities: driversEntries = {} } = driversResults.data || {};
 
   const sites = Object.values(sitesEntries).map((entry) => {
     return { id: entry.id, label: entry.name };
+  });
+
+  const drivers = Object.values(driversEntries).map((entry) => {
+    return { id: entry.id, label: `${entry.user.firstname} - ${entry.phone}` };
   });
 
   const vehicles = Object.values(vehiclesEntries).map((entry) => {
@@ -44,6 +56,8 @@ export default function TransportationTaskForm({
       label: `${entry.vehicleType} - ${entry.plateNumber}`,
     };
   });
+
+  console.log(drivers);
 
   return (
     <React.Fragment>
@@ -148,15 +162,21 @@ export default function TransportationTaskForm({
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            onChange={handleInputChange}
-            value={formData.assignedDriver}
-            required
+          <Autocomplete
             id="assignedDriver"
-            name="assignedDriver"
-            label="Assigned Driver"
-            fullWidth
-            variant="standard"
+            options={drivers}
+            onChange={(event, newValue) => {
+              setFormData({ ...formData, assignedDriver: newValue?.id ?? '' });
+            }}
+            renderInput={(params) => (
+              <TextField
+                name="assignedDriver"
+                value={formData.assignedDriver}
+                {...params}
+                label="Assigned Driver"
+                variant="standard"
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

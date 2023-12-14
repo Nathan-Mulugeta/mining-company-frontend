@@ -5,6 +5,7 @@ import { usersApiSlice } from '../../slices/users/usersApiSlice';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { vehiclesApiSlice } from '../../slices/vehicle/vehiclesApiSlice';
+import { driversApiSlice } from '../../slices/driver/driversApiSlice';
 
 const Prefetch = () => {
   useEffect(() => {
@@ -24,6 +25,12 @@ const Prefetch = () => {
 
     store.dispatch(
       vehiclesApiSlice.util.prefetch('getVehicles', 'vehiclesList', {
+        force: true,
+      })
+    );
+
+    store.dispatch(
+      driversApiSlice.util.prefetch('getDrivers', 'driversList', {
         force: true,
       })
     );
