@@ -5,6 +5,7 @@ import { useGetTransportationTasksQuery } from '../../slices/transportationTask/
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setLoading } from '../../slices/loading/loadingSlice';
+import { useNavigate } from 'react-router-dom';
 
 const VISIBLE_FIELDS = ['name', 'rating', 'country', 'dateCreated', 'isAdmin'];
 
@@ -81,6 +82,12 @@ export default function TransportationTaskDataGrid() {
   //   [data.columns]
   // );
 
+  const navigate = useNavigate();
+
+  const handleRowClick = (params) => {
+    navigate(`/report/${params.id}`);
+  };
+
   return (
     <Box sx={{ height: 'auto', width: 1 }}>
       {/* <DataGrid
@@ -105,7 +112,17 @@ export default function TransportationTaskDataGrid() {
           },
         }}
       /> */}
-      <DataGrid columns={columns} rows={rows} />
+      <DataGrid
+        onRowClick={handleRowClick}
+        columns={columns}
+        rows={rows}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
+      />
     </Box>
   );
 }

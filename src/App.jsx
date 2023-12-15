@@ -11,6 +11,7 @@ import { ROLES } from '../config/roles';
 import Loading from './components/Loading';
 import PersistLogin from './components/auth/PersistLogin';
 import Prefetch from './components/auth/Prefetch';
+import TaskReport from './pages/TaskReport';
 
 const App = () => {
   return (
@@ -26,7 +27,12 @@ const App = () => {
               <Route element={<Prefetch />}>
                 <Route element={<Layout />}>
                   <Route index element={<Home />} />
-                  <Route path="report" element={<Report />} />
+
+                  <Route path="report">
+                    <Route index element={<Report />} />
+                    <Route path=":id" element={<TaskReport />} />
+                  </Route>
+
                   <Route
                     path="transportation-task"
                     element={<TransportationTask />}
