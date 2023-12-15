@@ -89,6 +89,14 @@ export default function Review({ formData }) {
             />
           </ListItem>
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <ListItem disablePadding sx={{ py: 1, px: 0 }}>
+            <ListItemText
+              primary={formatedKeys.scheduledTime}
+              secondary={new Date(formData.scheduledTime).toLocaleString()}
+            />
+          </ListItem>
+        </Grid>
       </Grid>
     </React.Fragment>
   );

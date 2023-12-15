@@ -182,7 +182,7 @@ export default function TransportationTaskForm({
             onChange={(newValue) => {
               setFormData({
                 ...formData,
-                scheduledTime: new Date(newValue).toISOString(),
+                scheduledTime: newValue,
               });
             }}
             value={formData.scheduledTime ?? null}

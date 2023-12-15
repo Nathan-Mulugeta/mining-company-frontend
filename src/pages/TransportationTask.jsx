@@ -96,7 +96,7 @@ export default function TransportationTask() {
           destination: formData.destination.id,
           assignedVehicle: formData.assignedVehicle.id,
           assignedDriver: formData.assignedDriver.id,
-          scheduledTime: formData.scheduledTime,
+          scheduledTime: new Date(formData.scheduledTime).toISOString(),
         };
 
         const response = await addNewTask(taskData);
