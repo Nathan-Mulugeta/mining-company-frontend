@@ -12,8 +12,7 @@ import {
 import { useGetSitesQuery } from '../../slices/sites/sitesApiSlice';
 import { useGetVehiclesQuery } from '../../slices/vehicle/vehiclesApiSlice';
 import { useGetDriversQuery } from '../../slices/driver/driversApiSlice';
-
-const top100Films = [{ label: 'The Shawshank Redemption', year: 1994 }];
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 export default function TransportationTaskForm({
   handleInputChange,
@@ -177,15 +176,19 @@ export default function TransportationTaskForm({
             )}
           />
         </Grid>
+
         <Grid item xs={12} sm={6}>
-          <TextField
-            onChange={handleInputChange}
-            value={formData.scheduledTime}
-            required
+          <DateTimePicker
+            onChange={(newValue) => {
+              setFormData({
+                ...formData,
+                scheduledTime: new Date(newValue).toISOString(),
+              });
+            }}
+            value={formData.scheduledTime ?? null}
             id="scheduledTime"
             name="scheduledTime"
             label="Scheduled Time"
-            fullWidth
             variant="standard"
           />
         </Grid>
