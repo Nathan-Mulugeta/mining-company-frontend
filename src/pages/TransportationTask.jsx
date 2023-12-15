@@ -92,10 +92,10 @@ export default function TransportationTask() {
             weight: formData.weight,
             pricePerTon: formData.pricePerTon,
           },
-          source: formData.source,
-          destination: formData.destination,
-          assignedVehicle: formData.assignedVehicle,
-          assignedDriver: formData.assignedDriver,
+          source: formData.source.id,
+          destination: formData.destination.id,
+          assignedVehicle: formData.assignedVehicle.id,
+          assignedDriver: formData.assignedDriver.id,
           scheduledTime: formData.scheduledTime,
         };
 

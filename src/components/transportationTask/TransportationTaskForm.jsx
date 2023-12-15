@@ -110,12 +110,12 @@ export default function TransportationTaskForm({
             id="source"
             options={sites}
             onChange={(event, newValue) => {
-              setFormData({ ...formData, source: newValue?.id ?? '' });
+              setFormData({ ...formData, source: newValue });
             }}
+            value={formData.source?.label ?? ''}
             renderInput={(params) => (
               <TextField
                 name="source"
-                value={formData.source}
                 {...params}
                 label="Source"
                 variant="standard"
@@ -128,12 +128,12 @@ export default function TransportationTaskForm({
             id="destination"
             options={sites}
             onChange={(event, newValue) => {
-              setFormData({ ...formData, destination: newValue?.id ?? '' });
+              setFormData({ ...formData, destination: newValue });
             }}
+            value={formData.destination?.label ?? ''}
             renderInput={(params) => (
               <TextField
                 name="destination"
-                value={formData.destination}
                 {...params}
                 label="Destination"
                 variant="standard"
@@ -146,12 +146,12 @@ export default function TransportationTaskForm({
             id="assignedVehicle"
             options={vehicles}
             onChange={(event, newValue) => {
-              setFormData({ ...formData, assignedVehicle: newValue?.id ?? '' });
+              setFormData({ ...formData, assignedVehicle: newValue });
             }}
+            value={formData.assignedVehicle?.label || ''}
             renderInput={(params) => (
               <TextField
                 name="assignedVehicle"
-                value={formData.assignedVehicle}
                 {...params}
                 label="Assigned Vehicle"
                 variant="standard"
@@ -164,12 +164,12 @@ export default function TransportationTaskForm({
             id="assignedDriver"
             options={drivers}
             onChange={(event, newValue) => {
-              setFormData({ ...formData, assignedDriver: newValue?.id ?? '' });
+              setFormData({ ...formData, assignedDriver: newValue });
             }}
+            value={formData.assignedDriver?.label ?? ''}
             renderInput={(params) => (
               <TextField
                 name="assignedDriver"
-                value={formData.assignedDriver}
                 {...params}
                 label="Assigned Driver"
                 variant="standard"
