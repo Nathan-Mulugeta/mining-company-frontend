@@ -16,10 +16,13 @@ import { useAddNewTransportationTaskMutation } from '../slices/transportationTas
 import { useDispatch } from 'react-redux';
 import { setLoading } from '../slices/loading/loadingSlice';
 import { openAlert } from '../slices/alert/alertSlice';
+import useTitle from '../hooks/useTitle';
 
 const steps = ['Transport details', 'Review your task'];
 
 export default function TransportationTask() {
+  useTitle('Transportation Task');
+
   const [activeStep, setActiveStep] = React.useState(0);
   const { userId } = useAuth();
   const [formData, setFormData] = React.useState({

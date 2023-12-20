@@ -3,8 +3,8 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import { Box, Container, Typography } from '@mui/material';
 import useTitle from '../hooks/useTitle';
 
-const Account = () => {
-  useTitle('My Account');
+const Dashboard = () => {
+  useTitle('Dashboard');
   return (
     <Container>
       <Box
@@ -16,7 +16,7 @@ const Account = () => {
           height: '50vh',
         }}
       >
-        <Typography variant="h2">Account page under construction</Typography>
+        <Typography variant="h2">Dashboard under construction</Typography>
         <Box>
           <ConstructionIcon sx={{ fontSize: '100px' }} color="warning" />
         </Box>
@@ -25,4 +25,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default Dashboard;

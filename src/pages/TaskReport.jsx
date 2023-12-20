@@ -12,6 +12,7 @@ import { Box, Button, Container, Paper } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setLoading } from '../slices/loading/loadingSlice';
 import { openAlert } from '../slices/alert/alertSlice';
+import useTitle from '../hooks/useTitle';
 
 const formatedKeys = {
   description: 'Description',
@@ -28,6 +29,7 @@ const formatedKeys = {
 };
 
 export default function TaskReport() {
+  useTitle('Task Report');
   const { id } = useParams();
 
   const { task } = useGetTransportationTasksQuery('transportationTaskList', {

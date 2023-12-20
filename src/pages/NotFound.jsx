@@ -1,6 +1,8 @@
 import { Box, Button, Typography } from '@mui/material';
+import useTitle from '../hooks/useTitle';
 
 const NotFound = () => {
+  useTitle('Page Not Found');
   return (
     <Box
       component="main"

@@ -11,6 +11,12 @@ import AssessmentIcon from '@mui/icons-material/Assessment';
 import FireTruckIcon from '@mui/icons-material/FireTruck';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
+import { useSendLogoutMutation } from '../../slices/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { openAlert } from '../../slices/alert/alertSlice';
+import { useEffect } from 'react';
+import { setLoading } from '../../slices/loading/loadingSlice';
 
 export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
   const toggleDrawer = (event) => {
@@ -23,6 +29,41 @@ export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
     }
 
     drawerToggle();
+  };
+
+  const navigate = useNavigate();
+  const [logout, { isLoading }] = useSendLogoutMutation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setLoading(isLoading));
+  }, [dispatch, isLoading]);
+
+  const handleClick = async (text) => {
+    if (text === 'My account') {
+      navigate('/account');
+      return;
+    }
+
+    if (text === 'Log out') {
+      try {
+        await logout();
+        dispatch(
+          openAlert({
+            message: 'Successfully logged out',
+            severity: 'success',
+          })
+        );
+        navigate('/sign-in');
+      } catch (error) {
+        dispatch(
+          openAlert({
+            message: `Could not log out. ${error.message}`,
+            severity: 'error',
+          })
+        );
+      }
+    }
   };
 
   const list = () => (
@@ -51,7 +92,7 @@ export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
       <List>
         {['My account', 'Log out'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleClick(text)}>
               <ListItemIcon>
                 {text === 'My account' ? <AccountCircleIcon /> : <LogoutIcon />}
               </ListItemIcon>

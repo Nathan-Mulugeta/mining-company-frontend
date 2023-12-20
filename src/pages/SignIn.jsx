@@ -17,8 +17,10 @@ import { useNavigate } from 'react-router-dom';
 import { openAlert } from '../slices/alert/alertSlice';
 import { setLoading } from '../slices/loading/loadingSlice';
 import usePersist from '../hooks/usePersist';
+import useTitle from '../hooks/useTitle';
 
 export default function SignIn() {
+  useTitle('Sign-in');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

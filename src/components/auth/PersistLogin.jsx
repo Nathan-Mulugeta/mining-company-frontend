@@ -5,6 +5,7 @@ import usePersist from '../../hooks/usePersist';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentToken } from '../../slices/auth/authSlice';
 import { setLoading } from '../../slices/loading/loadingSlice';
+import { openAlert } from '../../slices/alert/alertSlice';
 
 const PersistLogin = () => {
   const [persist] = usePersist();
@@ -48,8 +49,14 @@ const PersistLogin = () => {
     content = <Outlet />;
   } else if (isError) {
     //persist: yes, token: no
-    toast.error(error?.data?.message);
-    navigate('/login');
+    dispatch(
+      openAlert({
+        message: error?.data?.message,
+        severity: 'error',
+      })
+    );
+
+    navigate('/sign-in');
   } else if (isSuccess && trueSuccess) {
     //persist: yes, token: yes
     content = <Outlet />;
