@@ -12,6 +12,7 @@ import Loading from './components/Loading';
 import PersistLogin from './components/auth/PersistLogin';
 import Prefetch from './components/auth/Prefetch';
 import TaskReport from './pages/TaskReport';
+import Account from './pages/Account';
 
 const App = () => {
   return (
@@ -37,6 +38,8 @@ const App = () => {
                     path="transportation-task"
                     element={<TransportationTask />}
                   />
+
+                  <Route path="account" element={<Account />} />
 
                   {/* Wildcard route for 404 */}
                   <Route path="*" element={<NotFound />} />

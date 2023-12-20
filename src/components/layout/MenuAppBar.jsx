@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import { openAlert } from '../../slices/alert/alertSlice';
 import { setLoading } from '../../slices/loading/loadingSlice';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Account', 'Logout'];
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -59,6 +59,11 @@ export default function MenuAppBar({ toggleDrawer }) {
         })
       );
       navigate('/sign-in');
+      return;
+    }
+
+    if (setting === 'Account') {
+      navigate('/account');
     }
   };
 
