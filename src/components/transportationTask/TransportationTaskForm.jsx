@@ -111,7 +111,7 @@ export default function TransportationTaskForm({
             onChange={(event, newValue) => {
               setFormData({ ...formData, source: newValue });
             }}
-            value={formData.source?.label ?? ''}
+            value={formData.source?.label}
             renderInput={(params) => (
               <TextField
                 name="source"
@@ -129,7 +129,7 @@ export default function TransportationTaskForm({
             onChange={(event, newValue) => {
               setFormData({ ...formData, destination: newValue });
             }}
-            value={formData.destination?.label ?? ''}
+            value={formData.destination?.label}
             renderInput={(params) => (
               <TextField
                 name="destination"
@@ -147,7 +147,7 @@ export default function TransportationTaskForm({
             onChange={(event, newValue) => {
               setFormData({ ...formData, assignedVehicle: newValue });
             }}
-            value={formData.assignedVehicle?.label || ''}
+            value={formData.assignedVehicle?.label}
             renderInput={(params) => (
               <TextField
                 name="assignedVehicle"
@@ -165,7 +165,7 @@ export default function TransportationTaskForm({
             onChange={(event, newValue) => {
               setFormData({ ...formData, assignedDriver: newValue });
             }}
-            value={formData.assignedDriver?.label ?? ''}
+            value={formData.assignedDriver?.label}
             renderInput={(params) => (
               <TextField
                 name="assignedDriver"

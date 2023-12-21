@@ -29,10 +29,10 @@ export default function TransportationTask() {
     description: '',
     weight: '',
     pricePerTon: '',
-    source: '',
-    destination: '',
-    assignedVehicle: '',
-    assignedDriver: '',
+    source: null,
+    destination: null,
+    assignedVehicle: null,
+    assignedDriver: null,
     scheduledTime: '',
     filledBy: '',
   });
@@ -113,6 +113,7 @@ export default function TransportationTask() {
         // If addNewTask succeeds, update the form and step
         setActiveStep(steps.length);
         setFormData({
+          ...formData,
           description: '',
           weight: '',
           pricePerTon: '',
@@ -121,7 +122,6 @@ export default function TransportationTask() {
           assignedVehicle: '',
           assignedDriver: '',
           scheduledTime: '',
-          filledBy: '',
         });
       } else {
         // Move to the next step
