@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { vehiclesApiSlice } from '../../slices/vehicle/vehiclesApiSlice';
 import { driversApiSlice } from '../../slices/driver/driversApiSlice';
+import { analystsApiSlice } from '../../slices/analyst/analystsApiSlice';
+import { adminsApiSlice } from '../../slices/admin/adminsApiSlice';
 
 const Prefetch = () => {
   useEffect(() => {
@@ -31,6 +33,18 @@ const Prefetch = () => {
 
     store.dispatch(
       driversApiSlice.util.prefetch('getDrivers', 'driversList', {
+        force: true,
+      })
+    );
+
+    store.dispatch(
+      analystsApiSlice.util.prefetch('getAnalysts', 'analystsList', {
+        force: true,
+      })
+    );
+
+    store.dispatch(
+      adminsApiSlice.util.prefetch('getAdmins', 'adminsList', {
         force: true,
       })
     );

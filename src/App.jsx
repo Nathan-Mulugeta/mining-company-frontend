@@ -29,15 +29,31 @@ const App = () => {
                 <Route element={<Layout />}>
                   <Route index element={<Dashboard />} />
 
-                  <Route path="report">
-                    <Route index element={<Report />} />
-                    <Route path=":id" element={<TaskReport />} />
+                  <Route
+                    element={
+                      <RequireAuth
+                        allowedRoles={[ROLES.Admin, ROLES.Manager]}
+                      />
+                    }
+                  >
+                    <Route path="report">
+                      <Route index element={<Report />} />
+                      <Route path=":id" element={<TaskReport />} />
+                    </Route>
                   </Route>
 
                   <Route
-                    path="transportation-task"
-                    element={<TransportationTask />}
-                  />
+                    element={
+                      <RequireAuth
+                        allowedRoles={[ROLES.Admin, ROLES.Analyst]}
+                      />
+                    }
+                  >
+                    <Route
+                      path="transportation-task"
+                      element={<TransportationTask />}
+                    />
+                  </Route>
 
                   <Route path="account" element={<Account />} />
 

@@ -17,8 +17,26 @@ import { useDispatch } from 'react-redux';
 import { openAlert } from '../../slices/alert/alertSlice';
 import { useEffect } from 'react';
 import { setLoading } from '../../slices/loading/loadingSlice';
+import useAuth from '../../hooks/useAuth';
 
 export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
+  const { roles } = useAuth();
+
+  let availableRoutes = [];
+
+  if (roles.includes('Admin')) {
+    availableRoutes = [
+      { text: 'Report', route: '/report' },
+      { text: 'Create a transport', route: '/transportation-task' },
+    ];
+  } else if (roles.includes('Manager')) {
+    availableRoutes = [{ text: 'Report', route: '/report' }];
+  } else if (roles.includes('Analyst')) {
+    availableRoutes = [
+      { text: 'Create a transport', route: '/transportation-task' },
+    ];
+  }
+
   const toggleDrawer = (event) => {
     if (
       event &&
@@ -74,10 +92,7 @@ export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
       onKeyDown={toggleDrawer}
     >
       <List>
-        {[
-          { text: 'Report', route: '/report' },
-          { text: 'Create a transport', route: '/transportation-task' },
-        ].map(({ text, route }) => (
+        {availableRoutes.map(({ text, route }) => (
           <ListItem key={text} disablePadding>
             <ListItemButton to={route}>
               <ListItemIcon>
@@ -88,7 +103,7 @@ export default function SideNav({ toggleDrawer: drawerToggle, drawerOpen }) {
           </ListItem>
         ))}
       </List>
-      <Divider />
+      {availableRoutes.length !== 0 && <Divider />}
       <List>
         {['My account', 'Log out'].map((text, index) => (
           <ListItem key={text} disablePadding>

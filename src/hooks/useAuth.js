@@ -6,6 +6,7 @@ const useAuth = () => {
   const token = useSelector(selectCurrentToken);
   let isManager = false;
   let isAdmin = false;
+  let isAnalyst = false;
   let status = 'Employee';
   let isExpired = false;
 
@@ -21,13 +22,15 @@ const useAuth = () => {
 
     isManager = roles.includes('Manager');
     isAdmin = roles.includes('Admin');
+    isAnalyst = roles.includes('Analyst');
 
     if (isManager) status = 'Manager';
     if (isAdmin) status = 'Admin';
+    if (isAnalyst) status = 'Analyst';
 
     return { username, roles, status, isManager, isAdmin, userId: id };
   }
 
-  return { username: '', roles: [], isManager, isAdmin, status };
+  return { username: '', roles: [], isManager, isAdmin, isAnalyst, status };
 };
 export default useAuth;
