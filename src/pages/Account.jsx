@@ -6,22 +6,33 @@ import useTitle from '../hooks/useTitle';
 const Account = () => {
   useTitle('My Account');
   return (
-    <Container>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
       <Box
         sx={{
+          p: 4,
+          borderRadius: 3,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '50vh',
         }}
       >
-        <Typography variant="h2">Account page under construction</Typography>
+        <Typography textAlign="center" variant="h3" color="gray">
+          Account page under construction
+        </Typography>
         <Box>
-          <ConstructionIcon sx={{ fontSize: '100px' }} color="warning" />
+          <ConstructionIcon sx={{ fontSize: '100px' }} color="disabled" />
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

@@ -6,22 +6,33 @@ import useTitle from '../hooks/useTitle';
 const Dashboard = () => {
   useTitle('Dashboard');
   return (
-    <Container>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
       <Box
         sx={{
+          p: 4,
+          borderRadius: 3,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '50vh',
         }}
       >
-        <Typography variant="h2">Dashboard under construction</Typography>
+        <Typography variant="h2" color="gray">
+          Dashboard under construction
+        </Typography>
         <Box>
-          <ConstructionIcon sx={{ fontSize: '100px' }} color="warning" />
+          <ConstructionIcon sx={{ fontSize: '100px' }} color="disabled" />
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

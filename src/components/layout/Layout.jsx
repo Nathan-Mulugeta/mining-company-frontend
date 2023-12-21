@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import MenuAppBar from './MenuAppBar';
@@ -12,13 +12,13 @@ const Layout = () => {
   };
 
   return (
-    <>
+    <Box id="background">
       <MenuAppBar toggleDrawer={toggleDrawer} />
       <SideNav toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} />
-      <Container maxWidth="xl" fixed sx={{ padding: 2, marginTop: 8 }}>
+      <Container maxWidth="xl" fixed sx={{ padding: 2, marginTop: 7 }}>
         <Outlet />
       </Container>
-    </>
+    </Box>
   );
 };
 

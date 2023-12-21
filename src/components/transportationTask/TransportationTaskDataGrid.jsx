@@ -89,7 +89,11 @@ export default function TransportationTaskDataGrid() {
   };
 
   return (
-    <Box sx={{ height: 'auto', width: 1 }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+      }}
+    >
       {/* <DataGrid
         {...data}
         initialState={{
@@ -112,17 +116,27 @@ export default function TransportationTaskDataGrid() {
           },
         }}
       /> */}
-      <DataGrid
-        onRowClick={handleRowClick}
-        columns={columns}
-        rows={rows}
-        slots={{ toolbar: GridToolbar }}
-        slotProps={{
-          toolbar: {
-            showQuickFilter: true,
-          },
+
+      <Box
+        sx={{
+          backgroundColor: 'white',
+          overflow: 'hidden',
+          borderRadius: 2,
+          p: 1,
         }}
-      />
+      >
+        <DataGrid
+          onRowClick={handleRowClick}
+          columns={columns}
+          rows={rows}
+          slots={{ toolbar: GridToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
+        />
+      </Box>
     </Box>
   );
 }

@@ -1,0 +1,16 @@
+#signIn {
+    background: url("./assets/sign-in-background.jpg");
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  #background {
+    background: url("./assets/background.jpg");
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
