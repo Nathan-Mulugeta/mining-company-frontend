@@ -25,7 +25,7 @@ const Dashboard = () => {
           justifyContent: 'center',
         }}
       >
-        <Typography variant="h2" color="gray">
+        <Typography variant="h3" color="gray">
           Dashboard under construction
         </Typography>
         <Box>

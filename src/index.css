@@ -9,8 +9,15 @@
   #background {
     background: url("./assets/background.jpg");
     background-repeat: no-repeat;
-    min-height: 100vh;
     height: 100%;
     background-size: cover;
     background-position: center center;
   }
+  
+  /* Media query for screens above small screens */
+  @media (min-width: 768px) {
+    #background {
+      min-height: 100vh;
+    }
+  }
+  
