@@ -115,7 +115,7 @@ export default function TaskReport() {
               <ListItem disablePadding sx={{ py: 1, px: 0 }}>
                 <ListItemText
                   primary={formatedKeys.source}
-                  secondary={String(source.name)}
+                  secondary={String(source)}
                 />
               </ListItem>
             </Grid>
@@ -123,7 +123,7 @@ export default function TaskReport() {
               <ListItem disablePadding sx={{ py: 1, px: 0 }}>
                 <ListItemText
                   primary={formatedKeys.destination}
-                  secondary={String(destination.name)}
+                  secondary={String(destination)}
                 />
               </ListItem>
             </Grid>
@@ -131,9 +131,7 @@ export default function TaskReport() {
               <ListItem disablePadding sx={{ py: 1, px: 0 }}>
                 <ListItemText
                   primary={formatedKeys.assignedVehicle}
-                  secondary={String(
-                    `${assignedVehicle.vehicleType} - ${assignedVehicle.plateNumber}`
-                  )}
+                  secondary={String(assignedVehicle)}
                 />
               </ListItem>
             </Grid>
@@ -141,7 +139,7 @@ export default function TaskReport() {
               <ListItem disablePadding sx={{ py: 1, px: 0 }}>
                 <ListItemText
                   primary={formatedKeys.assignedDriver}
-                  secondary={String(assignedDriver.user.firstname)}
+                  secondary={String(assignedDriver)}
                 />
               </ListItem>
             </Grid>
@@ -157,7 +155,7 @@ export default function TaskReport() {
               <ListItem disablePadding sx={{ py: 1, px: 0 }}>
                 <ListItemText
                   primary={formatedKeys.completed}
-                  secondary={String(completed)}
+                  secondary={String(completed ? '✅' : '❌')}
                 />
               </ListItem>
             </Grid>

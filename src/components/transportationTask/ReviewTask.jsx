@@ -61,7 +61,7 @@ export default function Review({ formData }) {
           <ListItem disablePadding sx={{ py: 1, px: 0 }}>
             <ListItemText
               primary={formatedKeys.source}
-              secondary={String(source.label)}
+              secondary={String(source)}
             />
           </ListItem>
         </Grid>
@@ -69,7 +69,7 @@ export default function Review({ formData }) {
           <ListItem disablePadding sx={{ py: 1, px: 0 }}>
             <ListItemText
               primary={formatedKeys.destination}
-              secondary={String(destination.label)}
+              secondary={String(destination)}
             />
           </ListItem>
         </Grid>
@@ -77,7 +77,7 @@ export default function Review({ formData }) {
           <ListItem disablePadding sx={{ py: 1, px: 0 }}>
             <ListItemText
               primary={formatedKeys.assignedVehicle}
-              secondary={String(assignedVehicle.label)}
+              secondary={String(assignedVehicle)}
             />
           </ListItem>
         </Grid>
@@ -85,7 +85,7 @@ export default function Review({ formData }) {
           <ListItem disablePadding sx={{ py: 1, px: 0 }}>
             <ListItemText
               primary={formatedKeys.assignedDriver}
-              secondary={String(assignedDriver.label)}
+              secondary={String(assignedDriver)}
             />
           </ListItem>
         </Grid>

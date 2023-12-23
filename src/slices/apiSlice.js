@@ -2,7 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setCredentials } from './auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://mining-api-fh3p.onrender.com',
+  // baseUrl: 'https://mining-api-fh3p.onrender.com',
+  baseUrl: 'http://localhost:3500',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;

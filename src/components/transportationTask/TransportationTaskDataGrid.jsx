@@ -15,16 +15,16 @@ const columns = [
     headerName: 'Scheduled Date and Time',
     width: 200,
   },
-  { field: 'filledBy', headerName: 'Filled By', width: 150 },
+  { field: 'cargoDescription', headerName: 'Cargo Description', width: 200 },
+  { field: 'assignedDriver', headerName: 'Assigned Driver', width: 180 },
+  { field: 'assignedVehicle', headerName: 'Assigned Vehicle', width: 180 },
+  { field: 'driverPhone', headerName: 'Assigned Driver Phone', width: 180 },
   { field: 'source', headerName: 'Source', width: 150 },
   { field: 'destination', headerName: 'Destination', width: 150 },
-  { field: 'assignedVehicle', headerName: 'Assigned Vehicle', width: 180 },
-  { field: 'assignedDriver', headerName: 'Assigned Driver', width: 180 },
-  { field: 'driverPhone', headerName: 'Assigned Driver Phone', width: 180 },
-  { field: 'cargoDescription', headerName: 'Cargo Description', width: 200 },
   { field: 'cargoWeight', headerName: 'Cargo Weight', width: 150 },
   { field: 'cargoPricePerTon', headerName: 'Price Per Ton', width: 180 },
   { field: 'completed', headerName: 'Completed', width: 120 },
+  { field: 'filledBy', headerName: 'Filled By', width: 150 },
 ];
 
 export default function TransportationTaskDataGrid() {
@@ -48,13 +48,13 @@ export default function TransportationTaskDataGrid() {
         cargoDescription: task.cargo.description,
         cargoWeight: task.cargo.weight,
         cargoPricePerTon: task.cargo.pricePerTon,
-        source: task.source.name,
-        destination: task.source.name,
-        assignedVehicle: task.assignedVehicle.plateNumber,
-        assignedDriver: task.assignedDriver.user.firstname,
-        driverPhone: task.assignedDriver.phone,
+        source: task.source,
+        destination: task.source,
+        assignedVehicle: task.assignedVehicle,
+        assignedDriver: task.assignedDriver,
+        driverPhone: task.assignedDriver,
         scheduledTime: new Date(task.scheduledTime).toLocaleString(),
-        completed: task.completed,
+        completed: task.completed ? '✅' : '❌',
       };
     });
   };

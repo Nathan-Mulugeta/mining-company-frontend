@@ -70,7 +70,12 @@ export default function SignIn() {
           openAlert({ message: 'Wrong credentials', severity: 'error' })
         );
       } else {
-        dispatch(openAlert({ message: err.data?.message, severity: 'error' }));
+        dispatch(
+          openAlert({
+            message: err.data?.message || 'Not found',
+            severity: 'error',
+          })
+        );
       }
     }
   };
